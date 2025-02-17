@@ -9,6 +9,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 import TipKit
+import StoreKit
 
 struct SettingsView: View {
     @Environment(ActionService.self) var actionService
@@ -79,6 +80,22 @@ struct SettingsView: View {
                             Image(systemName: SFSymbol.ladybug)
                                 .resizable()
                                 .frame(width: iconDimension, height: iconDimension)
+                        }
+                    }
+
+                    Button(action: {
+                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                        {
+                            SKStoreReviewController.requestReview(in: windowScene)
+                        }
+                    }){
+                        Label {
+                            Text("Rate this app", comment: "Link to rate the app.")
+                        } icon: {
+                            Image(systemName: "star.fill")
+                            .resizable()
+                            .frame(width: iconDimension, height: iconDimension)
+                            .foregroundStyle(Color(red: 0.898, green: 0.627, blue:0.0))
                         }
                     }
                     
